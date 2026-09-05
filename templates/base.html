@@ -19,44 +19,149 @@
 
     <!-- NAVBAR -->
     <nav class="bg-emerald-700 text-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <a href="/" class="flex items-center space-x-3">
-    <!-- Square dimensions + rounded-full + object-cover -->
-    <img src="{{ url_for('static', filename='images/log.jpeg') }}" alt="EcoChakra Logo" class="w-12 h-12 rounded-full object-cover border-2 border-emerald-500 shadow-sm">
-    <span class="text-xl font-bold tracking-wide text-white">Eco<span class="text-emerald-400">Chakra</span></span>
-</a>
-                
-                <div class="flex items-center space-x-4">
-                    {% if current_user.is_authenticated %}
-                        <span class="text-sm bg-emerald-800 px-3 py-1 rounded-full text-emerald-200">
-                            <i class="fa-solid fa-circle-user mr-1"></i> {{ current_user.username }}
-                        </span>
-                        {% if current_user.role == 'Recycler' %}
-                            <a href="/recycler/dashboard" class="hover:text-emerald-200 font-medium text-sm">Dashboard</a>
-                        {% elif current_user.role == 'Admin' %}
-                            <a href="/admin/dashboard" class="hover:text-emerald-200 font-medium text-sm">Admin Panel</a>
-                        {% endif %}
-                        <a href="/shop" class="hover:text-emerald-200 font-medium text-sm"><i class="fa-solid fa-store mr-1"></i> Store</a>
-                        <a href="/logout" class="bg-emerald-800 hover:bg-emerald-900 px-3 py-1.5 rounded-lg text-sm transition">Logout</a>
-                    {% else %}
-                        <a href="/shop" class="hover:text-emerald-200 font-medium text-sm"><i class="fa-solid fa-store mr-1"></i> Store</a>
-                        <a href="/login" class="hover:text-emerald-200 font-medium text-sm">Login</a>
-                        <a href="/register" class="bg-white text-emerald-700 hover:bg-emerald-50 px-4 py-2 rounded-lg font-semibold text-sm transition shadow-md">Register</a>
-                        <a href="{{ url_for('impact_dashboard') }}"
-   class="text-sm font-semibold text-slate-700 hover:text-emerald-600 transition">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
 
-    <i class="fa-solid fa-chart-line mr-1"></i>
-    Eco Impact
+            <a href="/" class="flex items-center space-x-2 sm:space-x-3">
+                <img src="{{ url_for('static', filename='images/log.jpeg') }}"
+                     alt="EcoChakra Logo"
+                     class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border-2 border-emerald-400 shadow-sm">
+                <span class="text-lg sm:text-xl font-bold tracking-wide text-white">
+                    Eco<span class="text-emerald-300">Chakra</span>
+                </span>
+            </a>
 
-</a>
-    
+            <div class="hidden md:flex items-center space-x-4">
+                {% if current_user.is_authenticated %}
+
+                    <span class="text-sm bg-emerald-800 px-3 py-1.5 rounded-full text-emerald-200">
+                        <i class="fa-solid fa-circle-user mr-1"></i>
+                        {{ current_user.username }}
+                    </span>
+
+                    {% if current_user.role == 'Recycler' %}
+                        <a href="/recycler/dashboard"
+                           class="hover:text-emerald-200 font-medium text-sm transition">
+                            Dashboard
+                        </a>
+                    {% elif current_user.role == 'Admin' %}
+                        <a href="/admin/dashboard"
+                           class="hover:text-emerald-200 font-medium text-sm transition">
+                            Admin Panel
+                        </a>
                     {% endif %}
-                </div>
+
+                    <a href="/shop"
+                       class="hover:text-emerald-200 font-medium text-sm transition">
+                        <i class="fa-solid fa-store mr-1"></i> Store
+                    </a>
+
+                    <a href="{{ url_for('impact_dashboard') }}"
+                       class="hover:text-emerald-200 font-medium text-sm transition">
+                        <i class="fa-solid fa-chart-line mr-1"></i> Eco Impact
+                    </a>
+
+                    <a href="/logout"
+                       class="bg-emerald-800 hover:bg-emerald-900 px-3 py-1.5 rounded-lg text-sm transition">
+                        Logout
+                    </a>
+
+                {% else %}
+
+                    <a href="/shop"
+                       class="hover:text-emerald-200 font-medium text-sm transition">
+                        <i class="fa-solid fa-store mr-1"></i> Store
+                    </a>
+
+                    <a href="{{ url_for('impact_dashboard') }}"
+                       class="hover:text-emerald-200 font-medium text-sm transition">
+                        <i class="fa-solid fa-chart-line mr-1"></i> Eco Impact
+                    </a>
+
+                    <a href="/login"
+                       class="hover:text-emerald-200 font-medium text-sm transition">
+                        Login
+                    </a>
+
+                    <a href="/register"
+                       class="bg-white text-emerald-700 hover:bg-emerald-50 px-4 py-2 rounded-lg font-semibold text-sm transition shadow-md">
+                        Register
+                    </a>
+
+                {% endif %}
+            </div>
+
+            <button onclick="toggleMobileMenu()"
+                    class="md:hidden text-white text-2xl p-2 rounded-lg hover:bg-emerald-800 transition"
+                    aria-label="Open menu">
+                <i id="menu-icon" class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden pb-4">
+            <div class="flex flex-col space-y-2 pt-3 border-t border-emerald-600">
+
+                {% if current_user.is_authenticated %}
+
+                    <div class="px-3 py-2 bg-emerald-800 rounded-lg text-emerald-200 text-sm">
+                        <i class="fa-solid fa-circle-user mr-2"></i>
+                        {{ current_user.username }}
+                    </div>
+
+                    {% if current_user.role == 'Recycler' %}
+                        <a href="/recycler/dashboard"
+                           class="px-3 py-2.5 rounded-lg hover:bg-emerald-800 transition">
+                            <i class="fa-solid fa-gauge mr-2"></i> Dashboard
+                        </a>
+                    {% elif current_user.role == 'Admin' %}
+                        <a href="/admin/dashboard"
+                           class="px-3 py-2.5 rounded-lg hover:bg-emerald-800 transition">
+                            <i class="fa-solid fa-shield-halved mr-2"></i> Admin Panel
+                        </a>
+                    {% endif %}
+
+                    <a href="/shop"
+                       class="px-3 py-2.5 rounded-lg hover:bg-emerald-800 transition">
+                        <i class="fa-solid fa-store mr-2"></i> Store
+                    </a>
+
+                    <a href="{{ url_for('impact_dashboard') }}"
+                       class="px-3 py-2.5 rounded-lg hover:bg-emerald-800 transition">
+                        <i class="fa-solid fa-chart-line mr-2"></i> Eco Impact
+                    </a>
+
+                    <a href="/logout"
+                       class="px-3 py-2.5 rounded-lg bg-emerald-800 hover:bg-emerald-900 transition">
+                        <i class="fa-solid fa-right-from-bracket mr-2"></i> Logout
+                    </a>
+
+                {% else %}
+
+                    <a href="/shop"
+                       class="px-3 py-2.5 rounded-lg hover:bg-emerald-800 transition">
+                        <i class="fa-solid fa-store mr-2"></i> Store
+                    </a>
+
+                    <a href="{{ url_for('impact_dashboard') }}"
+                       class="px-3 py-2.5 rounded-lg hover:bg-emerald-800 transition">
+                        <i class="fa-solid fa-chart-line mr-2"></i> Eco Impact
+                    </a>
+
+                    <a href="/login"
+                       class="px-3 py-2.5 rounded-lg hover:bg-emerald-800 transition">
+                        <i class="fa-solid fa-right-to-bracket mr-2"></i> Login
+                    </a>
+
+                    <a href="/register"
+                       class="px-3 py-2.5 rounded-lg bg-white text-emerald-700 font-semibold hover:bg-emerald-50 transition">
+                        <i class="fa-solid fa-user-plus mr-2"></i> Register
+                    </a>
+
+                {% endif %}
             </div>
         </div>
-    </nav>
-
+    </div>
+</nav>
     <!-- MAIN CONTENT AREA -->
     <main class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex-grow">
         {% block content %}{% endblock %}
