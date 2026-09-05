@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-4xl mx-auto bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden flex flex-col h-[75vh] my-6">
+    
+    <!-- Header -->
+    <div class="bg-slate-900 text-white p-4 flex justify-between items-center border-b border-slate-800">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center font-bold text-lg shadow-md">
+                🤖
+            </div>
+            <div>
+                <h2 class="font-bold text-base tracking-wide flex items-center gap-2">
+                    EcoBot AI <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/30">Live</span>
+                </h2>
+                <p class="text-xs text-slate-400">Mesh AI Powered Assistant</p>
+            </div>
+        </div>
+        <a href="/" class="text-slate-400 hover:text-white transition text-xs flex items-center gap-1 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700">
+            <i class="fa-solid fa-house"></i> Home
+        </a>
+    </div>
+
+    <!-- Chat Screen -->
+    <div id="chat-messages" class="flex-1 p-6 overflow-y-auto space-y-4 bg-slate-50 text-sm">
+        <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center text-sm font-bold flex-shrink-0 shadow-sm">
+                🤖
+            </div>
+            <div class="bg-white border border-slate-200 text-slate-800 p-4 rounded-2xl rounded-tl-none shadow-sm max-w-[80%] leading-relaxed">
+                Namaste! Main **EcoBot** hoon. EcoChakra par waste recycling, points system, ya eco-products ke baare me kuch bhi poochhein! ✨
+            </div>
+        </div>
+    </div>
+
+    <!-- Input Bar -->
+    <div class="p-4 bg-white border-t border-slate-200">
+        <div class="flex items-center gap-3 bg-slate-100 px-4 py-2 rounded-xl border border-slate-200 focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/20 transition">
+            <input type="text" id="chat-input" placeholder="Type your message here..." onkeydown="if(event.key==='Enter') sendMessage()" class="flex-1 bg-transparent text-sm py-1.5 outline-none text-slate-800 placeholder-slate-400">
+            <button onclick="sendMessage()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-lg font-semibold text-xs transition shadow-sm flex items-center gap-1.5 flex-shrink-0">
+                <span>Send</span>
+                <i class="fa-solid fa-paper-plane text-[10px]"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+async function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const message = input.value.trim();
+    if (!message) return;
+
+    const container = document.getElementById('chat-messages');
+
+    // User Message
+    const userHTML = `
+        <div class="flex items-start justify-end gap-3">
+            <div class="bg-slate-900 text-white p-4 rounded-2xl rounded-tr-none shadow-sm max-w-[80%] leading-relaxed">
+                ${escapeHTML(message)}
+            </div>
+            <div class="w-8 h-8 rounded-full bg-slate-700 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">
+                👤
+            </div>
+        </div>
+    `;
+    container.innerHTML += userHTML;
+    input.value = '';
+    container.scrollTop = container.scrollHeight;
+
+    // Typing Dot Animation
+    const typingId = 'typing-' + Date.now();
+    const typingHTML = `
+        <div id="${typingId}" class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center text-sm font-bold flex-shrink-0">
+                🤖
+            </div>
+            <div class="bg-white border border-slate-200 text-slate-500 p-3.5 rounded-2xl rounded-tl-none shadow-sm text-xs flex items-center gap-1">
+                <span>Thinking</span>
+                <span class="animate-pulse">●</span>
+                <span class="animate-pulse delay-100">●</span>
+                <span class="animate-pulse delay-200">●</span>
+            </div>
+        </div>
+    `;
+    container.innerHTML += typingHTML;
+    container.scrollTop = container.scrollHeight;
+
+    // Call Backend Proxy API
+    try {
+        const res = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: message })
+        });
+        const data = await res.json();
+
+        document.getElementById(typingId).remove();
+
+        const botHTML = `
+            <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center text-sm font-bold flex-shrink-0">
+                    🤖
+                </div>
+                <div class="bg-white border border-slate-200 text-slate-800 p-4 rounded-2xl rounded-tl-none shadow-sm max-w-[80%] leading-relaxed">
+                    ${formatReply(data.reply)}
+                </div>
+            </div>
+        `;
+        container.innerHTML += botHTML;
+        container.scrollTop = container.scrollHeight;
+    } catch (e) {
+        document.getElementById(typingId).remove();
+    }
+}
+
+function escapeHTML(str) {
+    return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
+}
+
+function formatReply(reply) {
+    return reply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+}
+</script>
+{% endblock %}

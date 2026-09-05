@@ -1,0 +1,873 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="relative min-h-screen overflow-hidden">
+
+    <!-- Background Video -->
+    <video
+        autoplay
+        muted
+        loop
+        playsinline
+        class="fixed inset-0 w-full h-full object-cover -z-20 opacity-20"
+    >
+        <source
+            src="{{ url_for('static', filename='videos/impact-bg.mp4') }}"
+            type="video/mp4"
+        >
+    </video>
+
+    <!-- Overlay -->
+    <div class="fixed inset-0 bg-slate-950/80 -z-10"></div>
+
+
+    <!-- HEADER -->
+    <section class="text-center py-10">
+
+        <span class="inline-block bg-emerald-500/20 text-emerald-300 px-4 py-2 rounded-full text-sm font-bold mb-4">
+            ♻️ EcoChakra Environmental Intelligence
+        </span>
+
+        <h1 class="text-4xl md:text-6xl font-extrabold text-white">
+            India's Waste Impact Dashboard
+        </h1>
+
+        <p class="mt-4 text-slate-300 max-w-3xl mx-auto">
+            Understand how unmanaged waste affects animals, humans,
+            water systems, cities and the environment.
+        </p>
+
+    </section>
+
+
+    <!-- MAIN STATS -->
+<section class="max-w-7xl mx-auto px-6">
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- TOTAL WASTE -->
+        <div class="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-6">
+
+            <div class="text-4xl mb-4">🗑️</div>
+
+            <p class="text-slate-400 text-sm">
+                Municipal Waste Generated
+            </p>
+
+            <h2 class="text-3xl font-extrabold text-white mt-2">
+                62.2M+
+            </h2>
+
+            <p class="text-xs text-slate-400 mt-2">
+                Approx. annualised from 1,70,339 tonnes/day.
+            </p>
+
+            <div class="mt-3 text-[11px] text-emerald-300">
+                Source: CPCB, 2021–22
+            </div>
+
+        </div>
+
+
+        <!-- COLLECTED -->
+        <div class="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-6">
+
+            <div class="text-4xl mb-4">🚛</div>
+
+            <p class="text-slate-400 text-sm">
+                Waste Collected
+            </p>
+
+            <h2 class="text-3xl font-extrabold text-blue-400 mt-2">
+                57.1M+
+            </h2>
+
+            <p class="text-xs text-slate-400 mt-2">
+                Approx. annualised from 1,56,449 tonnes/day.
+            </p>
+
+            <div class="mt-3 text-[11px] text-emerald-300">
+                Source: CPCB, 2021–22
+            </div>
+
+        </div>
+
+
+        <!-- PROCESSED -->
+        <div class="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-6">
+
+            <div class="text-4xl mb-4">♻️</div>
+
+            <p class="text-slate-400 text-sm">
+                Waste Processed / Treated
+            </p>
+
+            <h2 class="text-3xl font-extrabold text-emerald-400 mt-2">
+                33.4M+
+            </h2>
+
+            <p class="text-xs text-slate-400 mt-2">
+                Approx. annualised from 91,511 tonnes/day.
+            </p>
+
+            <div class="mt-3 text-[11px] text-emerald-300">
+                Source: CPCB, 2021–22
+            </div>
+
+        </div>
+
+
+        <!-- GAP -->
+        <div class="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-6">
+
+            <div class="text-4xl mb-4">⚠️</div>
+
+            <p class="text-slate-400 text-sm">
+                Processing Gap
+            </p>
+
+            <h2 class="text-3xl font-extrabold text-red-400 mt-2">
+                13.6M+
+            </h2>
+
+            <p class="text-xs text-slate-400 mt-2">
+                Approx. annualised from 37,373 tonnes/day gap.
+            </p>
+
+            <div class="mt-3 text-[11px] text-red-300">
+                Source: CPCB, 2021–22
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+    <!-- WASTE ANALYTICS -->
+<section class="max-w-7xl mx-auto px-6 mt-12">
+
+    <div class="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8">
+
+        <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-8">
+
+            <div>
+
+                <span class="text-emerald-400 text-sm font-bold">
+                    📊 NATIONAL WASTE ANALYTICS
+                </span>
+
+                <h2 class="text-2xl font-bold text-white mt-2">
+                    Where does India's waste go?
+                </h2>
+
+                <p class="text-slate-400 text-sm mt-2">
+                    CPCB reported municipal solid waste figures for 2021–22.
+                </p>
+
+            </div>
+
+            <div class="bg-emerald-500/10 border border-emerald-500/20 px-4 py-3 rounded-xl">
+
+                <p class="text-xs text-slate-400">
+                    Daily waste generation
+                </p>
+
+                <p class="text-xl font-extrabold text-emerald-400">
+                    1,70,339 TPD
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- GENERATED -->
+        <div class="mb-7">
+
+            <div class="flex justify-between text-sm mb-2">
+
+                <span class="text-white font-semibold">
+                    🗑️ Generated
+                </span>
+
+                <span class="text-white font-bold">
+                    1,70,339 TPD
+                </span>
+
+            </div>
+
+            <div class="w-full h-5 bg-slate-800 rounded-full overflow-hidden">
+
+                <div
+                    class="h-full bg-red-500 rounded-full"
+                    style="width:100%;">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- COLLECTED -->
+        <div class="mb-7">
+
+            <div class="flex justify-between text-sm mb-2">
+
+                <span class="text-white font-semibold">
+                    🚛 Collected
+                </span>
+
+                <span class="text-blue-400 font-bold">
+                    1,56,449 TPD
+                </span>
+
+            </div>
+
+            <div class="w-full h-5 bg-slate-800 rounded-full overflow-hidden">
+
+                <div
+                    class="h-full bg-blue-500 rounded-full"
+                    style="width:91.8%;">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROCESSED -->
+        <div class="mb-7">
+
+            <div class="flex justify-between text-sm mb-2">
+
+                <span class="text-white font-semibold">
+                    ♻️ Processed / Treated
+                </span>
+
+                <span class="text-emerald-400 font-bold">
+                    91,511 TPD
+                </span>
+
+            </div>
+
+            <div class="w-full h-5 bg-slate-800 rounded-full overflow-hidden">
+
+                <div
+                    class="h-full bg-emerald-500 rounded-full"
+                    style="width:53.7%;">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- GAP -->
+        <div>
+
+            <div class="flex justify-between text-sm mb-2">
+
+                <span class="text-white font-semibold">
+                    ⚠️ Processing Gap
+                </span>
+
+                <span class="text-red-400 font-bold">
+                    37,373 TPD
+                </span>
+
+            </div>
+
+            <div class="w-full h-5 bg-slate-800 rounded-full overflow-hidden">
+
+                <div
+                    class="h-full bg-orange-500 rounded-full"
+                    style="width:21.9%;">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SOURCE -->
+        <div class="mt-8 pt-5 border-t border-white/10">
+
+            <p class="text-xs text-slate-500">
+                Source: Central Pollution Control Board (CPCB),
+                Annual Report on Solid Waste Management 2021–22.
+            </p>
+
+            <p class="text-xs text-slate-500 mt-1">
+                Note: Annual figures shown above are calculated by
+                multiplying reported daily values by 365.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+    <!-- WASTE CATEGORY -->
+    <section class="max-w-7xl mx-auto px-6 mt-12">
+
+        <div class="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8">
+
+            <h2 class="text-2xl font-bold text-white mb-2">
+                Waste Impact by Category
+            </h2>
+
+            <p class="text-slate-400 text-sm mb-8">
+                Different types of waste create different environmental risks.
+            </p>
+
+
+            <div class="space-y-6">
+
+                <!-- Plastic -->
+                <div>
+
+                    <div class="flex justify-between mb-2">
+                        <span class="text-white font-semibold">
+                            🧴 Plastic Waste
+                        </span>
+
+                        <span class="text-red-400 font-bold">
+                            Very High Risk
+                        </span>
+                    </div>
+
+                    <div class="h-4 bg-slate-700 rounded-full overflow-hidden">
+
+                        <div
+                            class="h-full bg-red-500 rounded-full"
+                            style="width: 90%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Food -->
+                <div>
+
+                    <div class="flex justify-between mb-2">
+
+                        <span class="text-white font-semibold">
+                            🍌 Organic / Food Waste
+                        </span>
+
+                        <span class="text-orange-400 font-bold">
+                            High
+                        </span>
+
+                    </div>
+
+                    <div class="h-4 bg-slate-700 rounded-full overflow-hidden">
+
+                        <div
+                            class="h-full bg-orange-500 rounded-full"
+                            style="width: 70%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Paper -->
+                <div>
+
+                    <div class="flex justify-between mb-2">
+
+                        <span class="text-white font-semibold">
+                            📄 Paper Waste
+                        </span>
+
+                        <span class="text-yellow-400 font-bold">
+                            Medium
+                        </span>
+
+                    </div>
+
+                    <div class="h-4 bg-slate-700 rounded-full overflow-hidden">
+
+                        <div
+                            class="h-full bg-yellow-500 rounded-full"
+                            style="width: 50%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- E-Waste -->
+                <div>
+
+                    <div class="flex justify-between mb-2">
+
+                        <span class="text-white font-semibold">
+                            💻 E-Waste
+                        </span>
+
+                        <span class="text-purple-400 font-bold">
+                            High
+                        </span>
+
+                    </div>
+
+                    <div class="h-4 bg-slate-700 rounded-full overflow-hidden">
+
+                        <div
+                            class="h-full bg-purple-500 rounded-full"
+                            style="width: 75%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- STATE WASTE ANALYTICS -->
+<section class="max-w-7xl mx-auto px-6 mt-10">
+
+    <div class="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8">
+
+        <div class="mb-8">
+
+            <span class="text-blue-400 text-sm font-bold">
+                🇮🇳 STATE LEVEL VIEW
+            </span>
+
+            <h2 class="text-2xl font-bold text-white mt-2">
+                Waste Generation Across Selected States
+            </h2>
+
+            <p class="text-slate-400 text-sm mt-2">
+                Reported municipal solid waste generation, 2021–22.
+            </p>
+
+        </div>
+
+
+        <div class="space-y-6">
+
+            <!-- MAHARASHTRA -->
+            <div>
+
+                <div class="flex justify-between mb-2">
+
+                    <span class="text-white font-semibold">
+                        Maharashtra
+                    </span>
+
+                    <span class="text-emerald-400 font-bold">
+                        23,531 TPD
+                    </span>
+
+                </div>
+
+                <div class="h-4 bg-slate-800 rounded-full overflow-hidden">
+
+                    <div
+                        class="h-full bg-emerald-500 rounded-full"
+                        style="width:100%;">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- KARNATAKA -->
+            <div>
+
+                <div class="flex justify-between mb-2">
+
+                    <span class="text-white font-semibold">
+                        Karnataka
+                    </span>
+
+                    <span class="text-emerald-400 font-bold">
+                        13,034 TPD
+                    </span>
+
+                </div>
+
+                <div class="h-4 bg-slate-800 rounded-full overflow-hidden">
+
+                    <div
+                        class="h-full bg-emerald-500 rounded-full"
+                        style="width:55.4%;">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- WEST BENGAL -->
+            <div>
+
+                <div class="flex justify-between mb-2">
+
+                    <span class="text-white font-semibold">
+                        West Bengal
+                    </span>
+
+                    <span class="text-emerald-400 font-bold">
+                        13,709 TPD
+                    </span>
+
+                </div>
+
+                <div class="h-4 bg-slate-800 rounded-full overflow-hidden">
+
+                    <div
+                        class="h-full bg-emerald-500 rounded-full"
+                        style="width:58.3%;">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TAMIL NADU -->
+            <div>
+
+                <div class="flex justify-between mb-2">
+
+                    <span class="text-white font-semibold">
+                        Tamil Nadu
+                    </span>
+
+                    <span class="text-emerald-400 font-bold">
+                        14,586 TPD
+                    </span>
+
+                </div>
+
+                <div class="h-4 bg-slate-800 rounded-full overflow-hidden">
+
+                    <div
+                        class="h-full bg-emerald-500 rounded-full"
+                        style="width:62%;">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- GUJARAT -->
+            <div>
+
+                <div class="flex justify-between mb-2">
+
+                    <span class="text-white font-semibold">
+                        Gujarat
+                    </span>
+
+                    <span class="text-emerald-400 font-bold">
+                        10,095 TPD
+                    </span>
+
+                </div>
+
+                <div class="h-4 bg-slate-800 rounded-full overflow-hidden">
+
+                    <div
+                        class="h-full bg-emerald-500 rounded-full"
+                        style="width:42.9%;">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="mt-8 pt-5 border-t border-white/10">
+
+            <p class="text-xs text-slate-500">
+                Source: CPCB Annual Report on Solid Waste Management 2021–22.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+    <!-- ANIMAL IMPACT -->
+    <section class="max-w-7xl mx-auto px-6 mt-10">
+
+        <div class="grid md:grid-cols-2 gap-8">
+
+            <div class="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8">
+
+                <h2 class="text-2xl font-bold text-white mb-6">
+                    🐾 Wildlife Impact
+                </h2>
+
+                <div class="space-y-5">
+
+                    <div class="flex justify-between border-b border-white/10 pb-4">
+
+                        <span class="text-slate-300">
+                            Marine animals
+                        </span>
+
+                        <span class="text-red-400 font-bold">
+                            Plastic exposure
+                        </span>
+
+                    </div>
+
+                    <div class="flex justify-between border-b border-white/10 pb-4">
+
+                        <span class="text-slate-300">
+                            Birds
+                        </span>
+
+                        <span class="text-red-400 font-bold">
+                            Ingestion / entanglement
+                        </span>
+
+                    </div>
+
+                    <div class="flex justify-between border-b border-white/10 pb-4">
+
+                        <span class="text-slate-300">
+                            Stray animals
+                        </span>
+
+                        <span class="text-orange-400 font-bold">
+                            Food & plastic waste
+                        </span>
+
+                    </div>
+
+                    <div class="flex justify-between">
+
+                        <span class="text-slate-300">
+                            Aquatic ecosystems
+                        </span>
+
+                        <span class="text-blue-400 font-bold">
+                            Water pollution
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- HUMAN IMPACT -->
+            <div class="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8">
+
+                <h2 class="text-2xl font-bold text-white mb-6">
+                    🏙️ Human & Slum Community Impact
+                </h2>
+
+                <div class="space-y-5">
+
+                    <div>
+
+                        <h3 class="text-white font-bold">
+                            Air Pollution
+                        </h3>
+
+                        <p class="text-slate-400 text-sm mt-1">
+                            Open waste burning can release harmful smoke
+                            and particulate matter.
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <h3 class="text-white font-bold">
+                            Water Contamination
+                        </h3>
+
+                        <p class="text-slate-400 text-sm mt-1">
+                            Improper waste disposal can contaminate local
+                            water sources.
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <h3 class="text-white font-bold">
+                            Vector-Borne Disease Risk
+                        </h3>
+
+                        <p class="text-slate-400 text-sm mt-1">
+                            Accumulated waste and stagnant water can create
+                            conditions favourable to mosquitoes and other vectors.
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <h3 class="text-white font-bold">
+                            Flooding & Waterlogging
+                        </h3>
+
+                        <p class="text-slate-400 text-sm mt-1">
+                            Plastic and solid waste can obstruct drainage systems,
+                            increasing local flooding risk.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CITY IMPACT -->
+    <section class="max-w-7xl mx-auto px-6 mt-10">
+
+        <div class="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8">
+
+            <h2 class="text-2xl font-bold text-white mb-6">
+                🌧️ Waste & Urban Flooding
+            </h2>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+                <div class="bg-black/20 rounded-2xl p-5">
+
+                    <div class="text-3xl">
+                        🌧️
+                    </div>
+
+                    <h3 class="text-white font-bold mt-3">
+                        Mumbai
+                    </h3>
+
+                    <p class="text-slate-400 text-sm mt-2">
+                        Drain blockage and heavy rainfall can contribute
+                        to urban waterlogging.
+                    </p>
+
+                </div>
+
+
+                <div class="bg-black/20 rounded-2xl p-5">
+
+                    <div class="text-3xl">
+                        🌧️
+                    </div>
+
+                    <h3 class="text-white font-bold mt-3">
+                        Delhi
+                    </h3>
+
+                    <p class="text-slate-400 text-sm mt-2">
+                        Solid waste can obstruct local drains and waterways.
+                    </p>
+
+                </div>
+
+
+                <div class="bg-black/20 rounded-2xl p-5">
+
+                    <div class="text-3xl">
+                        🌧️
+                    </div>
+
+                    <h3 class="text-white font-bold mt-3">
+                        Kolkata
+                    </h3>
+
+                    <p class="text-slate-400 text-sm mt-2">
+                        Waste accumulation can worsen drainage problems
+                        during heavy rainfall.
+                    </p>
+
+                </div>
+
+
+                <div class="bg-black/20 rounded-2xl p-5">
+
+                    <div class="text-3xl">
+                        🌧️
+                    </div>
+
+                    <h3 class="text-white font-bold mt-3">
+                        Bengaluru
+                    </h3>
+
+                    <p class="text-slate-400 text-sm mt-2">
+                        Improper disposal can contribute to blocked
+                        stormwater infrastructure.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CALL TO ACTION -->
+    <section class="max-w-5xl mx-auto px-6 py-16 text-center">
+
+        <div class="bg-emerald-500/10 border border-emerald-500/20 rounded-3xl p-10">
+
+            <div class="text-5xl mb-5">
+                ♻️
+            </div>
+
+            <h2 class="text-3xl font-extrabold text-white">
+                Every kilogram matters.
+            </h2>
+
+            <p class="text-slate-300 mt-3 max-w-2xl mx-auto">
+                Submit your waste to EcoChakra and become part of the
+                circular economy movement.
+            </p>
+
+            <a
+                href="{{ url_for('recycler_dashboard') }}"
+                class="inline-flex items-center gap-2 mt-7 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-7 py-3 rounded-xl transition"
+            >
+                ♻️ Start Recycling
+            </a>
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

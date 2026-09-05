@@ -1,0 +1,306 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- HEADER -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-slate-800">
+            Shopping Cart 🛒
+        </h1>
+
+        <p class="text-slate-500 mt-1">
+            Review your eco-friendly products before checkout.
+        </p>
+    </div>
+
+
+    {% if cart_items %}
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <!-- CART ITEMS -->
+        <div class="lg:col-span-2 space-y-4">
+
+            {% for item in cart_items %}
+
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+
+                <div class="flex flex-col sm:flex-row gap-5 items-center">
+
+                    <!-- PRODUCT IMAGE -->
+
+                    <div class="w-28 h-28 bg-slate-100 rounded-xl overflow-hidden flex-shrink-0">
+
+                        <img
+                            src="{{ url_for('static', filename='uploads/' + item.product.image) }}"
+                            alt="{{ item.product.title }}"
+                            class="w-full h-full object-cover">
+
+                    </div>
+
+
+                    <!-- PRODUCT INFO -->
+
+                    <div class="flex-1 w-full">
+
+                        <div class="flex justify-between gap-4">
+
+                            <div>
+
+                                <span class="text-xs bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full">
+                                    {{ item.product.category }}
+                                </span>
+
+                                <h2 class="font-bold text-lg text-slate-800 mt-3">
+                                    {{ item.product.title }}
+                                </h2>
+
+                                <p class="text-emerald-600 font-bold text-xl mt-2">
+                                    ₹{{ "%.2f"|format(item.product.price) }}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- QUANTITY + REMOVE -->
+
+                        <div class="flex items-center justify-between mt-5">
+
+                            <div class="flex items-center border border-slate-200 rounded-xl overflow-hidden">
+
+                                <!-- DECREASE -->
+
+                                <a
+                                    href="{{ url_for('decrease', id=item.id) }}"
+                                    class="px-4 py-2 bg-slate-50 hover:bg-slate-100 font-bold text-slate-700">
+
+                                    −
+
+                                </a>
+
+
+                                <span class="px-5 py-2 font-bold">
+
+                                    {{ item.quantity }}
+
+                                </span>
+
+
+                                <!-- INCREASE -->
+
+                                <a
+                                    href="{{ url_for('increase', id=item.id) }}"
+                                    class="px-4 py-2 bg-slate-50 hover:bg-slate-100 font-bold text-slate-700">
+
+                                    +
+
+                                </a>
+
+                            </div>
+
+
+                            <!-- REMOVE -->
+
+                            <a
+                                href="{{ url_for('remove_cart', id=item.id) }}"
+                                onclick="return confirm('Remove this product from cart?')"
+                                class="text-red-500 hover:text-red-700 font-semibold text-sm">
+
+                                <i class="fa-solid fa-trash-can mr-1"></i>
+                                Remove
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SUBTOTAL -->
+
+                    <div class="text-right min-w-[110px]">
+
+                        <p class="text-xs text-slate-400">
+                            Subtotal
+                        </p>
+
+                        <p class="text-xl font-bold text-slate-800">
+
+                            ₹{{ "%.2f"|format(item.subtotal) }}
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- ORDER SUMMARY -->
+
+        <div class="lg:col-span-1">
+
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-lg p-6 sticky top-24">
+
+                <h2 class="text-xl font-bold text-slate-800 border-b pb-4">
+                    Order Summary
+                </h2>
+
+
+                <div class="space-y-4 mt-5">
+
+                    <div class="flex justify-between text-slate-600">
+
+                        <span>
+                            Items Total
+                        </span>
+
+                        <span class="font-semibold text-slate-800">
+
+                            ₹{{ "%.2f"|format(total) }}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="flex justify-between text-slate-600">
+
+                        <span>
+                            Eco Delivery
+                        </span>
+
+                        <span class="text-emerald-600 font-semibold">
+                            FREE
+                        </span>
+
+                    </div>
+
+
+                    <div class="flex justify-between text-slate-600">
+
+                        <span>
+                            Reward Discount
+                        </span>
+
+                        <span class="text-amber-600 font-semibold">
+
+                            ₹0
+
+                        </span>
+
+                    </div>
+
+
+                    <hr>
+
+
+                    <div class="flex justify-between items-center">
+
+                        <span class="font-bold text-lg">
+                            Total
+                        </span>
+
+                        <span class="font-extrabold text-2xl text-emerald-600">
+
+                            ₹{{ "%.2f"|format(total) }}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CHECKOUT -->
+
+                <a
+                    href="{{ url_for('checkout') }}"
+                    class="mt-7 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 transition">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    Proceed to Checkout
+
+                </a>
+
+
+                <div class="mt-5 bg-emerald-50 rounded-xl p-4 text-sm text-emerald-800">
+
+                    <div class="flex gap-2">
+
+                        <span>🌱</span>
+
+                        <p>
+                            Every purchase supports recycling and circular economy initiatives.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONTINUE SHOPPING -->
+
+    <div class="mt-8">
+
+        <a
+            href="{{ url_for('shop') }}"
+            class="text-emerald-600 hover:text-emerald-700 font-semibold">
+
+            ← Continue Shopping
+
+        </a>
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- EMPTY CART -->
+
+    <div class="bg-white rounded-3xl shadow-sm border border-slate-100 py-20 text-center">
+
+        <div class="text-7xl mb-6">
+            🛒
+        </div>
+
+        <h2 class="text-2xl font-bold text-slate-800">
+            Your cart is empty
+        </h2>
+
+        <p class="text-slate-500 mt-2">
+            Looks like you haven't added any eco-friendly products yet.
+        </p>
+
+        <a
+            href="{{ url_for('shop') }}"
+            class="inline-flex mt-7 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-7 py-3 rounded-xl">
+
+            Start Shopping ♻️
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

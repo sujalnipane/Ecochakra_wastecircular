@@ -1,0 +1,650 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- PAGE HEADER -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-slate-800">
+            Checkout 🔐
+        </h1>
+
+        <p class="text-slate-500 mt-1">
+            Enter your delivery details and review your order.
+        </p>
+    </div>
+
+
+    <!-- CHECKOUT FORM -->
+    <form id="checkout-form">
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- ========================================= -->
+            <!-- DELIVERY DETAILS -->
+            <!-- ========================================= -->
+
+            <div class="lg:col-span-2">
+
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+
+                    <h2 class="text-xl font-bold text-slate-800 mb-6">
+                        📦 Delivery Address
+                    </h2>
+
+
+                    <div class="grid md:grid-cols-2 gap-5">
+
+                        <!-- FULL NAME -->
+                        <div>
+
+                            <label class="block text-sm font-semibold mb-2">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="fullname"
+                                name="fullname"
+                                value="{{ current_user.username }}"
+                                required
+                                class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 outline-none"
+                                placeholder="Enter your full name">
+
+                        </div>
+
+
+                        <!-- PHONE -->
+                        <div>
+
+                            <label class="block text-sm font-semibold mb-2">
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                required
+                                maxlength="10"
+                                pattern="[0-9]{10}"
+                                placeholder="10 digit mobile number"
+                                class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 outline-none">
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ADDRESS -->
+                    <div class="mt-5">
+
+                        <label class="block text-sm font-semibold mb-2">
+                            Complete Address
+                        </label>
+
+                        <textarea
+                            id="address"
+                            name="address"
+                            rows="4"
+                            required
+                            placeholder="House No., Street, Area..."
+                            class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
+
+                    </div>
+
+
+                    <!-- CITY / STATE / PINCODE -->
+                    <div class="grid md:grid-cols-3 gap-5 mt-5">
+
+                        <!-- CITY -->
+                        <div>
+
+                            <label class="block text-sm font-semibold mb-2">
+                                City
+                            </label>
+
+                            <input
+                                type="text"
+                                id="city"
+                                name="city"
+                                required
+                                class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 outline-none">
+
+                        </div>
+
+
+                        <!-- STATE -->
+                        <div>
+
+                            <label class="block text-sm font-semibold mb-2">
+                                State
+                            </label>
+
+                            <input
+                                type="text"
+                                id="state"
+                                name="state"
+                                required
+                                class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 outline-none">
+
+                        </div>
+
+
+                        <!-- PINCODE -->
+                        <div>
+
+                            <label class="block text-sm font-semibold mb-2">
+                                PIN Code
+                            </label>
+
+                            <input
+                                type="text"
+                                id="pincode"
+                                name="pincode"
+                                required
+                                maxlength="6"
+                                pattern="[0-9]{6}"
+                                placeholder="6 digit PIN"
+                                class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 outline-none">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ========================================= -->
+                <!-- PAYMENT INFORMATION -->
+                <!-- ========================================= -->
+
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 mt-6">
+
+                    <h2 class="text-xl font-bold text-slate-800 mb-5">
+                        💳 Payment
+                    </h2>
+
+
+                    <div class="border border-emerald-200 bg-emerald-50 rounded-xl p-5">
+
+                        <div class="flex items-center gap-4">
+
+                            <div class="text-3xl">
+                                💳
+                            </div>
+
+                            <div>
+
+                                <h3 class="font-bold text-slate-800">
+                                    Secure Online Payment
+                                </h3>
+
+                                <p class="text-sm text-slate-600">
+                                    UPI, Cards, Net Banking & Wallets
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mt-4 text-sm text-slate-500">
+
+                        🔒 Your payment is processed securely through
+                        Razorpay.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================================= -->
+            <!-- ORDER SUMMARY -->
+            <!-- ========================================= -->
+
+            <div>
+
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-lg p-6 sticky top-24">
+
+                    <h2 class="text-xl font-bold border-b pb-4">
+                        Order Summary
+                    </h2>
+
+
+                    <!-- PRODUCTS -->
+                    <div class="space-y-4 mt-5">
+
+                        {% for item in cart_items %}
+
+                        <div class="flex gap-3">
+
+                            <!-- PRODUCT IMAGE -->
+                            <img
+                                src="{{ url_for('static', filename='uploads/' + item.product.image) }}"
+                                alt="{{ item.product.title }}"
+                                class="w-16 h-16 rounded-lg object-cover bg-slate-100">
+
+
+                            <!-- PRODUCT INFO -->
+                            <div class="flex-1 min-w-0">
+
+                                <p class="font-semibold text-sm line-clamp-2">
+                                    {{ item.product.title }}
+                                </p>
+
+                                <p class="text-xs text-slate-500 mt-1">
+                                    Qty: {{ item.quantity }}
+                                </p>
+
+                            </div>
+
+
+                            <!-- SUBTOTAL -->
+                            <p class="font-bold text-sm whitespace-nowrap">
+
+                                ₹{{ "%.2f"|format(item.subtotal) }}
+
+                            </p>
+
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <hr class="my-5">
+
+
+                    <!-- PRICE DETAILS -->
+                    <div class="space-y-3">
+
+                        <!-- ITEMS TOTAL -->
+                        <div class="flex justify-between text-slate-600">
+
+                            <span>
+                                Items Total
+                            </span>
+
+                            <span class="font-semibold">
+
+                                ₹{{ "%.2f"|format(total) }}
+
+                            </span>
+
+                        </div>
+
+
+                        <!-- DELIVERY -->
+                        <div class="flex justify-between">
+
+                            <span>
+                                Delivery
+                            </span>
+
+                            <span class="text-emerald-600 font-semibold">
+                                FREE
+                            </span>
+
+                        </div>
+
+
+                        <!-- DISCOUNT -->
+                        <div class="flex justify-between text-amber-600">
+
+                            <span>
+                                Reward Points Discount
+                            </span>
+
+                            <span class="font-semibold">
+
+                                - ₹{{ "%.2f"|format(discount) }}
+
+                            </span>
+
+                        </div>
+
+
+                        <hr>
+
+
+                        <!-- GRAND TOTAL -->
+                        <div class="flex justify-between items-center">
+
+                            <span class="text-lg font-bold">
+                                Payable
+                            </span>
+
+                            <span class="text-2xl font-extrabold text-emerald-600">
+
+                                ₹{{ "%.2f"|format(grand_total) }}
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================================= -->
+                    <!-- PAY BUTTON -->
+                    <!-- ================================= -->
+
+                    <button
+                        type="submit"
+                        id="pay-button"
+                        class="w-full mt-7 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl shadow-lg transition">
+
+                        <i class="fa-solid fa-lock mr-2"></i>
+
+                        Proceed to Secure Payment
+
+                    </button>
+
+
+                    <p class="text-xs text-center text-slate-400 mt-4">
+
+                        🔒 Secure payment powered by Razorpay
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+<!-- ============================================= -->
+<!-- RAZORPAY CHECKOUT SCRIPT -->
+<!-- ============================================= -->
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+<script>
+
+document.getElementById("checkout-form").addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const payButton = document.getElementById("pay-button");
+
+    /* ----------------------------------------- */
+    /* GET FORM VALUES */
+    /* ----------------------------------------- */
+
+    const fullname = document.getElementById("fullname").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const city = document.getElementById("city").value.trim();
+    const state = document.getElementById("state").value.trim();
+    const pincode = document.getElementById("pincode").value.trim();
+
+
+    /* ----------------------------------------- */
+    /* BASIC VALIDATION */
+    /* ----------------------------------------- */
+
+    if (!fullname || !phone || !address || !city || !state || !pincode) {
+
+        alert("Please fill all delivery details.");
+
+        return;
+    }
+
+
+    if (!/^[0-9]{10}$/.test(phone)) {
+
+        alert("Please enter a valid 10-digit phone number.");
+
+        return;
+    }
+
+
+    if (!/^[0-9]{6}$/.test(pincode)) {
+
+        alert("Please enter a valid 6-digit PIN code.");
+
+        return;
+    }
+
+
+    /* ----------------------------------------- */
+    /* BUTTON LOADING */
+    /* ----------------------------------------- */
+
+    payButton.disabled = true;
+
+    payButton.innerHTML = `
+        <i class="fa-solid fa-spinner fa-spin mr-2"></i>
+        Creating Secure Payment...
+    `;
+
+
+    try {
+
+        /* ----------------------------------------- */
+        /* CREATE RAZORPAY ORDER ON SERVER */
+        /* ----------------------------------------- */
+
+        const response = await fetch(
+            "{{ url_for('create_order') }}",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    fullname: fullname,
+                    phone: phone,
+                    address: address,
+                    city: city,
+                    state: state,
+                    pincode: pincode
+
+                })
+            }
+        );
+
+
+        const data = await response.json();
+
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.error || "Unable to create payment order."
+            );
+
+        }
+
+
+        /* ----------------------------------------- */
+        /* RAZORPAY OPTIONS */
+        /* ----------------------------------------- */
+
+        const options = {
+
+            key: data.key,
+
+            amount: data.amount,
+
+            currency: "INR",
+
+            name: "EcoChakra",
+
+            description: "Eco-friendly Product Purchase",
+
+            order_id: data.razorpay_order_id,
+
+
+            prefill: {
+
+                name: fullname,
+
+                contact: phone
+
+            },
+
+
+            theme: {
+
+                color: "#059669"
+
+            },
+
+
+            handler: async function(paymentResponse) {
+
+                /* --------------------------------- */
+                /* VERIFY PAYMENT ON SERVER */
+                /* --------------------------------- */
+
+                try {
+
+                    const verifyResponse = await fetch(
+                        "{{ url_for('verify_payment') }}",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                razorpay_order_id:
+                                    paymentResponse.razorpay_order_id,
+
+                                razorpay_payment_id:
+                                    paymentResponse.razorpay_payment_id,
+
+                                razorpay_signature:
+                                    paymentResponse.razorpay_signature
+
+                            })
+                        }
+                    );
+
+
+                    const verifyData =
+                        await verifyResponse.json();
+
+
+                    if (verifyResponse.ok && verifyData.success) {
+
+                        window.location.href =
+                            verifyData.redirect_url;
+
+                    } else {
+
+                        alert(
+                            verifyData.error ||
+                            "Payment verification failed."
+                        );
+
+                        resetPayButton();
+
+                    }
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    alert(
+                        "Payment verification mein problem aa gayi."
+                    );
+
+                    resetPayButton();
+
+                }
+
+            },
+
+
+            modal: {
+
+                ondismiss: function() {
+
+                    resetPayButton();
+
+                }
+
+            }
+
+        };
+
+
+        /* ----------------------------------------- */
+        /* OPEN RAZORPAY */
+        /* ----------------------------------------- */
+
+        const razorpay = new Razorpay(options);
+
+        razorpay.on("payment.failed", function(response) {
+
+            console.error(
+                "Payment Failed:",
+                response.error
+            );
+
+            alert(
+                "Payment failed. Please try again."
+            );
+
+            resetPayButton();
+
+        });
+
+
+        razorpay.open();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            error.message ||
+            "Payment start karne mein problem aa gayi."
+        );
+
+        resetPayButton();
+
+    }
+
+
+    /* ----------------------------------------- */
+    /* RESET BUTTON */
+    /* ----------------------------------------- */
+
+    function resetPayButton() {
+
+        payButton.disabled = false;
+
+        payButton.innerHTML = `
+            <i class="fa-solid fa-lock mr-2"></i>
+            Proceed to Secure Payment
+        `;
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

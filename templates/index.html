@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- HERO SECTION WITH BACKGROUND VIDEO -->
+<div class="relative rounded-3xl overflow-hidden shadow-2xl my-4 text-white min-h-[500px] flex items-center justify-center">
+    
+    <!-- 🎥 BACKGROUND VIDEO ELEMENT -->
+    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-50">
+        <source src="{{ url_for('static', filename='videos/eco-bg.mp4') }}" type="video/mp4">
+        Aapka browser video tag support nahi karta.
+    </video>
+
+    <!-- CONTENT OVERLAY (Ye video ke upar dikhega) -->
+    <div class="max-w-3xl mx-auto text-center space-y-6 relative z-10 p-8">
+        <span class="bg-emerald-600/80 text-emerald-100 text-xs font-semibold uppercase px-4 py-1.5 rounded-full border border-emerald-400/30 backdrop-blur-md">
+            🌱 Smart Circular Economy Platform
+        </span>
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight drop-shadow-md">
+            Waste Ko Banao <span class="text-emerald-300">Wealth</span> Aur Eco-Friendly Rewards!
+        </h1>
+        <p class="text-slate-100 text-base md:text-lg drop-shadow">
+            Ghar ka kachra recycle karo, points jeeto, aur humare Amazon-style marketplace se high-quality recycled products kharido.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4 pt-4">
+            <a href="/register" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-8 py-3.5 rounded-xl shadow-lg transition transform hover:-translate-y-0.5">
+                <i class="fa-solid fa-recycle mr-2"></i> Start Recycling
+            </a>
+            <a href="/shop" class="bg-white/20 hover:bg-white/30 text-white font-semibold px-8 py-3.5 rounded-xl backdrop-blur-md border border-white/30 transition">
+                <i class="fa-solid fa-bag-shopping mr-2"></i> Buy Recycled
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- CATEGORIES SECTION -->
+<div class="py-12">
+    <h2 class="text-2xl font-bold text-center text-slate-800 mb-8">Supported Waste Categories</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition text-center space-y-3">
+            <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-2xl mx-auto"><i class="fa-solid fa-book"></i></div>
+            <h3 class="font-bold text-slate-700">Books & Paper</h3>
+            <p class="text-xs text-slate-500">Notebooks, Old Books, Cartons</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition text-center space-y-3">
+            <div class="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center text-2xl mx-auto"><i class="fa-solid fa-bottle-water"></i></div>
+            <h3 class="font-bold text-slate-700">Plastic Waste</h3>
+            <p class="text-xs text-slate-500">Bottles, Containers, Packaging</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition text-center space-y-3">
+            <div class="w-14 h-14 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center text-2xl mx-auto"><i class="fa-solid fa-box"></i></div>
+            <h3 class="font-bold text-slate-700">Cardboard</h3>
+            <p class="text-xs text-slate-500">Delivery Boxes, Packaging Sheet</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition text-center space-y-3">
+            <div class="w-14 h-14 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center text-2xl mx-auto"><i class="fa-solid fa-om"></i></div>
+            <h3 class="font-bold text-slate-700">Religious Waste</h3>
+            <p class="text-xs text-slate-500">Flowers, Cloths, Ceremonial Waste</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

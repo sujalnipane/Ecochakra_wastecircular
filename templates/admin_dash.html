@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Admin Dashboard 🛠️</h2>
+
+<h3>Pending Recycling Approvals</h3>
+<table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse; text-align: left;">
+    <tr style="background: #eee;">
+        <th>User ID</th>
+        <th>Category</th>
+        <th>Weight (KG)</th>
+        <th>Image</th>
+        <th>Action</th>
+    </tr>
+    {% for sub in submissions %}
+    <tr>
+        <td>{{ sub.user_id }}</td>
+        <td>{{ sub.category }}</td>
+        <td>{{ sub.weight_kg }} KG</td>
+        <td><a href="{{ url_for('static', filename='uploads/' + sub.image) }}" target="_blank">View Photo</a></td>
+        <td>
+            <a href="/admin/approve/{{ sub.id }}" style="background: green; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px;">Approve & Award Points</a>
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="5">Koi pending submissions nahi hain.</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

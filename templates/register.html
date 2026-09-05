@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Register</h2>
+
+<form method="POST" style="max-width: 400px;">
+
+    <p>
+        Username:
+        <input
+            type="text"
+            name="username"
+            required
+            style="width: 100%; padding: 8px;"
+        >
+    </p>
+
+    <p>
+        Email:
+        <input
+            type="email"
+            name="email"
+            required
+            style="width: 100%; padding: 8px;"
+        >
+    </p>
+
+    <p>
+        Mobile Number:
+        <input
+            type="tel"
+            name="phone"
+            required
+            maxlength="10"
+            pattern="[0-9]{10}"
+            inputmode="numeric"
+            placeholder="Enter 10-digit mobile number"
+            style="width: 100%; padding: 8px;"
+        >
+    </p>
+
+    <p>
+        Password:
+        <input
+            type="password"
+            name="password"
+            required
+            style="width: 100%; padding: 8px;"
+        >
+    </p>
+
+    <p>
+        Role:
+        <select
+            name="role"
+            style="width: 100%; padding: 8px;"
+        >
+            <option value="Recycler">Recycler (Sell Waste)</option>
+            <option value="Buyer">Buyer (Shop Products)</option>
+            <option value="Admin">Admin</option>
+        </select>
+    </p>
+
+    <button
+        type="submit"
+        style="background: #2e7d32; color: white; padding: 10px 20px; border: none; cursor: pointer;"
+    >
+        Register
+    </button>
+
+</form>
+
+{% endblock %}
